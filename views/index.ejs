@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Great Number Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <style>
+        h1{
+            text-align: center;
+        }
+        h3{
+            text-align: center;
+        }
+        p{
+            text-align: center;
+        }
+        #error{
+            background-color: #c5565e;
+            color: white;
+            height: 180px;
+            border-radius: 5px;
+            padding: 50px;
+        }
+        #success{
+            background-color: #44c36e;
+            color: white;
+            height: 250px;
+            border-radius: 5px;
+            padding: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <br>
+                <h1>Welcome to the Great Number Game!</h1>
+                <h3>I am thinking of a number between 1 and 100</h3>
+                <h3>Take a guess!</h3>
+                <br>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5"></div>
+            <div class="col-md-2 text-center">
+                <form action="/guess" method="post">
+                    <div class="form-group">
+                        <input type="text" name="guess" class="form-control">
+                    </div>
+                    <input type="submit" class="btn btn-primary center-block">
+                </form>
+            </div>
+            <div class="col-md-5"></div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center">
+                <% if (request.guess < request.num) { %>
+                    <div id="error">
+                        <h1>Too Low!</h1>
+                    </div>
+                <% } else if (request.guess > request.num) { %>
+                    <div id="error">
+                        <h1>Too High!</h1>
+                    </div>
+                <% } else if (request.guess == request.num) { %>
+                    <div id="success">
+                        <h1><%= request.num %> was the number!</h1>
+                        <br>
+                        <a href="/reset" class="btn btn-primary">Play Again?</a>
+                    </div>
+                <% } else if (typeof request.guess != "number") { %>
+                    <div id="error">
+                        <h1>Not a Number</h1>
+                    </div>
+                <% } %>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        
+    </div>
+</body>
+</html>
